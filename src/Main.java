@@ -1,19 +1,24 @@
 import Config.DbConnection;
+import service.UserService;
+
 import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
 
+        Scanner inp=new Scanner(System.in);
+
         System.out.println("Hello and welcome!");
 
-//        DbConnection dbConnection = new DbConnection();
-//        dbConnection.dataBaseConnection("GreenPulse", "GreenPulse", "");
+
 
         DbConnection dbConnection = DbConnection.getInstance();
         dbConnection.getConnection();
 
-        Scanner inp=new Scanner(System.in);
+        UserService userService = new UserService();
+
+
         System.out.println("bienvenu dans notre application");
         int choix;
 
@@ -23,14 +28,14 @@ public class Main {
             System.out.println("+------------------------------------------+");
             System.out.println("| 1 - ajouter utilisateur                  |");
             System.out.println("| 2 - afficher tous les utilisateurs       |");
-            System.out.println("| 3 - exit                                 |");
+            System.out.println("| 3   update utilisateur                   |");
+            System.out.println("| 4   delete utilisateur                   |");
+            System.out.println("| 5 - exit                                 |");
             System.out.println("+------------------------------------------+");
 
             choix = inp.nextInt();
             switch (choix){
                 case 1:
-                    System.out.println("entrez id user");
-                    int id = inp.nextInt();
                     inp.nextLine();
 
                     System.out.println("entrez name user");
@@ -39,12 +44,37 @@ public class Main {
                     System.out.println("entrez age");
                     int age = inp.nextInt();
                     inp.nextLine();
+                    userService.addUser(name, age);
+
                     break;
 
                 case 2:
                     System.out.println("voici la listes des utilisateurs");
+                    userService.afficherUsers();
                     break;
                 case 3:
+                    System.out.println("update utilisateur");
+                    System.out.println("enter id de user to update");
+                    int idUpdate = inp.nextInt();
+                    inp.nextLine();
+
+                    System.out.println("enter nouveau name");
+                    String nouvName= inp.nextLine();
+
+                    System.out.println("enter nouveau age");
+                    int nouvAge = inp.nextInt();
+                    inp.nextLine();
+                    userService.updateUser(idUpdate,nouvName,nouvAge);
+                    break;
+                case 4:
+                    System.out.println("delete utilisateur");
+                    System.out.println("enter id de user to delete");
+                    int idDelete = inp.nextInt();
+                    inp.nextLine();
+                    userService.deleteUser(idDelete);
+                    break;
+
+                case 5:
                     System.out.println("exit");
                     break;
                 default:
@@ -53,7 +83,7 @@ public class Main {
             }
 
 
-        }while (choix != 3);
+        }while (choix != 5);
 
 
 

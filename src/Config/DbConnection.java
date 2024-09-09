@@ -37,34 +37,7 @@ public class DbConnection {
 
 
 
-//    private
 
-//    public static Connection
-//
-//    pub
-//    public DbConnection getInstace
-
-
-
-
-//    public Connection dataBaseConnection(String dbName,String dbUser,String dbPass) {
-//        Connection connection = null;
-//
-//        try{
-//            Class.forName("org.postgresql.Driver");
-//            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+dbName,dbUser,dbPass);
-//            if (connection !=null){
-//                System.out.println("database connecter");
-//            }else {
-//                System.out.println("database pas connecter");
-//            }
-//        }catch(Exception e){
-//            System.out.println(e);
-//        }
-//        return connection;
-//
-//
-//    }
 
 
 }

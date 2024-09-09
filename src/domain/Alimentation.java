@@ -1,13 +1,27 @@
 package domain;
 
-public class Alimentation {
+import java.time.LocalDate;
+
+public class Alimentation extends Consomation {
     private String typeAliment;
     private double pois;
 
 
-    public Alimentation(String typeAliment, double pois) {
+    public Alimentation(int quantite, LocalDate dateDebut, LocalDate dateFin , String typeAliment, double pois) {
+        super(quantite,dateDebut,dateFin);
         this.typeAliment = typeAliment;
         this.pois = pois;
+    }
+
+    @Override
+    public double calculerImpact(){
+        double impactConsomation = 0;
+        if (this.typeAliment.equals("viande")){
+            impactConsomation= 5.0;
+        }else {
+            impactConsomation = 0.5;
+        }
+        return impactConsomation * this.pois * super.getQuantite();
     }
 
 

@@ -1,13 +1,29 @@
 package domain;
 
-public class Longement {
+import java.time.LocalDate;
+
+public class Longement extends Consomation {
     private int consommationEnergie;
     private String typeEnergie;
 
-    public Longement(int consommationEnergie, String typeEnergie) {
+    public Longement(int quantite, LocalDate dateDebut, LocalDate dateFin,int consommationEnergie, String typeEnergie) {
+        super(quantite,dateDebut,dateFin);
         this.consommationEnergie = consommationEnergie;
         this.typeEnergie = typeEnergie;
     }
+    @Override
+    public double calculerImpact(){
+        double impactConsomation = 0;
+        if (this.typeEnergie.equals("electricite")){
+            impactConsomation = 1.5;
+        }else {
+            impactConsomation = 2.0;
+        }
+        return impactConsomation * this.consommationEnergie * super.getQuantite();
+
+    }
+
+
 
     public int getConsommationEnergie() {
         return consommationEnergie;

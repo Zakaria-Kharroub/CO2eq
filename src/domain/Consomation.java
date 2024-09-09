@@ -2,7 +2,7 @@ package domain;
 
 import java.time.LocalDate;
 
-public class Consomation {
+public abstract class Consomation {
     private int quantite;
     private LocalDate dateDebut;
     private LocalDate dateFin;
@@ -12,6 +12,8 @@ public class Consomation {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
+    public abstract double calculerImpact();
+
 
     public int getQuantite() {
         return quantite;

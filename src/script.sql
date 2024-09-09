@@ -25,9 +25,9 @@
 -- afficher name de user et leur consomations
 -- select users.name, consomations.date_debut, consomations.date_fin from users join consomations on users.id = consomations.user_id;
 
-SELECT users.name,consomations.date_debut,consomations.date_fin
-FROM users JOIN consomations ON users.id = consomations.user_id
-order by users.name;
+-- SELECT users.name,consomations.date_debut,consomations.date_fin
+-- FROM users JOIN consomations ON users.id = consomations.user_id
+-- order by users.name;
 
 
 
