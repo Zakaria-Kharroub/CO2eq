@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserRepository {
     private Connection connection;
@@ -45,6 +46,7 @@ public class UserRepository {
         return userList;
     }
 
+
     public boolean updateUser(User user) throws SQLException {
         String query = "UPDATE users SET name = ?, age = ? WHERE id = ?";
 
@@ -66,4 +68,32 @@ public class UserRepository {
             return true;
         }
     }
+
+    public Optional<User> findById(int id)throws SQLException{
+        String query = "SELECT * FROM users WHERE id = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setInt(1,id);
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+
+                if (resultSet.next()){
+                    String name = resultSet.getString("name");
+                    int age = resultSet.getInt("age");
+                    User user =new User(id,name,age);
+                    return Optional.of(user);
+                }else {
+                    return Optional.empty();
+                }
+            }
+
+        }
+
+
+    }
+
+
+
+
+
 }
