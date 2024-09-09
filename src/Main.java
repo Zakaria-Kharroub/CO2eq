@@ -30,7 +30,7 @@ public class Main {
             System.out.println("| 2 - afficher tous les utilisateurs       |");
             System.out.println("| 3   update utilisateur                   |");
             System.out.println("| 4   delete utilisateur                   |");
-            System.out.println("| 5 - exit                                 |");
+            System.out.println("| 4 - exit                                 |");
             System.out.println("+------------------------------------------+");
 
             choix = inp.nextInt();
@@ -64,14 +64,28 @@ public class Main {
                     System.out.println("enter nouveau age");
                     int nouvAge = inp.nextInt();
                     inp.nextLine();
-                    userService.updateUser(idUpdate,nouvName,nouvAge);
+
+                    boolean isUpdate=userService.updateUser(idUpdate,nouvName,nouvAge);
+                    if (isUpdate) {
+                        System.out.println("utilisateur update avec succes");
+                    } else {
+                        System.out.println("utilisateur not found");
+                    }
                     break;
+
+
                 case 4:
                     System.out.println("delete utilisateur");
                     System.out.println("enter id de user to delete");
                     int idDelete = inp.nextInt();
                     inp.nextLine();
-                    userService.deleteUser(idDelete);
+
+                    boolean isDelete = userService.deleteUser(idDelete);
+                    if (isDelete) {
+                        System.out.println("utilisateur deleted avec succes");
+                    } else {
+                        System.out.println("utilisateur not found");
+                    }
                     break;
 
                 case 5:

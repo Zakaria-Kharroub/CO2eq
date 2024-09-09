@@ -14,6 +14,25 @@
 --     foreign key (user_id) references users(id)
 -- );
 
+
+-- create TYPE type_consomations as enum (
+--     'transport',
+--     'alimentation',
+--     'logement'
+--     );
+-- create table consomations(
+--
+--                              id serial primary key,
+--                              quantity int ,
+--                              date_debut date,
+--                              date_fin date,
+--                              type type_consomations,
+--                              user_id int,
+--                              foreign key (user_id) references users(id)
+--
+--
+-- )
+
 -- insert into users(name, age) values('zakaria', 20), ('mohamed', 25), ('ali', 30);
 
 -- select * from users;
