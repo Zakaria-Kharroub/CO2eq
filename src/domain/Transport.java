@@ -4,18 +4,18 @@ import java.time.LocalDate;
 
 public class Transport extends Consomation {
     private int distanceParcourue;
-    private String typeDeVehicule;
+    private String typeVehicule;
 
     public Transport(int quantite, LocalDate dateDebut, LocalDate dateFin, int distanceParcourue, String typeDeVehicule) {
         super(quantite, dateDebut, dateFin);
         this.distanceParcourue = distanceParcourue;
-        this.typeDeVehicule = typeDeVehicule;
+        this.typeVehicule = typeDeVehicule;
     }
 
     @Override
     public double calculerImpact() {
         double impactConsomation = 0;
-        if (this.typeDeVehicule.equals("voiture")){
+        if (this.typeVehicule.equals("voiture")){
             impactConsomation = 0.5;
         }else {
             impactConsomation = 0.1;
@@ -29,7 +29,7 @@ public class Transport extends Consomation {
     }
 
     public String getTypeDeVehicule() {
-        return typeDeVehicule;
+        return typeVehicule;
     }
 
     public void setDistanceParcourue(int distanceParcourue) {
@@ -37,14 +37,14 @@ public class Transport extends Consomation {
     }
 
     public void setTypeDeVehicule(String typeDeVehicule) {
-        this.typeDeVehicule = typeDeVehicule;
+        this.typeVehicule = typeDeVehicule;
     }
 
     @Override
     public String toString() {
         return "Transport{" +
                 "distanceParcourue=" + distanceParcourue +
-                ", typeDeVehicule='" + typeDeVehicule + '\'' +
+                ", typeDeVehicule='" + typeVehicule + '\'' +
                 '}';
     }
 }

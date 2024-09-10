@@ -7,6 +7,8 @@ public abstract class Consomation {
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
+    TypeConsomation typeConsomation;
+
     public Consomation(int quantite, LocalDate dateDebut, LocalDate dateFin) {
         this.quantite = quantite;
         this.dateDebut = dateDebut;

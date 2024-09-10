@@ -3,6 +3,7 @@ import domain.User;
 import service.UserService;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -35,7 +36,8 @@ public class Main {
             System.out.println("| 3   update utilisateur                   |");
             System.out.println("| 4   delete utilisateur                   |");
             System.out.println("| 5   find utilisateur by id               |");
-            System.out.println("| 6 - exit                                 |");
+            System.out.println("| 6 - ajouter consomation                  |");
+            System.out.println("| 7 - exit                                 |");
             System.out.println("+------------------------------------------+");
 
             choix = inp.nextInt();
@@ -127,6 +129,96 @@ public class Main {
                     break;
 
                 case 6:
+                    System.out.println("ajouter Consomation");
+                    System.out.println("---------------------");
+
+                    System.out.println("enter id de user vous voulez ajouter consomation");
+                    int idUserCons = inp.nextInt();
+                    inp.nextLine();
+
+                    System.out.println("enter quantite de consomation");
+                    int quantite = inp.nextInt();
+                    inp.nextLine();
+
+                    System.out.println("enter date debut (YYYY-MM-DD)");
+                    LocalDate dateDebut = LocalDate.parse(inp.nextLine());
+
+                    System.out.println("enter date fin (YYYY-MM-DD)");
+                    LocalDate dateFin = LocalDate.parse(inp.nextLine());
+                    //menu type consomation
+                    System.out.println("enter type de consomation");
+                    System.out.println(" => 1: Transport");
+                    System.out.println(" => 2: Logement");
+                    System.out.println(" => 3: Alimentation ");
+
+                    int typeConsomation = inp.nextInt();
+                    switch (typeConsomation) {
+                        case 1:
+                            System.out.println("------Transport-----");
+                            System.out.println("enter type de vehicule");
+                            System.out.println(" => 1: voiture");
+                            System.out.println(" => 2: train");
+                            int choixTypeVehicule = inp.nextInt();
+                            inp.nextLine();
+                            String typeVehicule = "";
+                            if (choixTypeVehicule == 1) {
+                                typeVehicule = "voiture";
+                            } else if (choixTypeVehicule == 2) {
+                                typeVehicule = "train";
+                            } else {
+                                System.out.println("choix invalid");
+                            }
+                            System.out.println("enter distance Parcourue");
+                            double distanceParcourue = inp.nextDouble();
+                            inp.nextLine();
+                            break;
+                        case 2:
+                            System.out.println("------Logement-----");
+                            System.out.println("enter type d'energie");
+                            System.out.println(" => 1: electricite");
+                            System.out.println(" => 2: gaz");
+                            int choixTypeEnergie = inp.nextInt();
+                            inp.nextLine();
+                            String typeEnergie = "";
+                            if (choixTypeEnergie == 1) {
+                                typeEnergie = "electricite";
+                            } else if (choixTypeEnergie == 2) {
+                                typeEnergie = "gaz";
+                            } else {
+                                System.out.println("choix invalid");
+                            }
+                            System.out.println("enter consommation d'energie");
+                            int consommationEnergie = inp.nextInt();
+                            inp.nextLine();
+
+                            break;
+                        case 3:
+                            System.out.println("------Alimentation-----");
+                            System.out.println("enter type aliment");
+                            System.out.println(" => 1: viande");
+                            System.out.println(" => 2: legume");
+                            int choixTypeAliment = inp.nextInt();
+                            inp.nextLine();
+                            String typeAliment = "";
+                            if (choixTypeAliment == 1) {
+                                typeAliment = "viande";
+                            } else if (choixTypeAliment == 2) {
+                                typeAliment = "legume";
+                            } else {
+                                System.out.println("choix invalid");
+                            }
+                            System.out.println("enter poids");
+                            double poids = inp.nextDouble();
+                            inp.nextLine();
+                            break;
+                        default:
+                            System.out.println("choix invalid");
+                            break;
+                    }
+
+                    break;
+
+                case 7:
                     System.out.println("exit");
                     break;
                 default:
@@ -135,7 +227,7 @@ public class Main {
             }
 
 
-        }while (choix != 6);
+        }while (choix != 7);
 
 
 

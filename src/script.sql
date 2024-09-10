@@ -50,6 +50,48 @@
 
 
 
--- drop table consomations
 
 
+/*---------------------- creation de table consomation---------------------------*/
+-- create TYPE type_consomations as enum (
+--     'Transport',
+--     'Alimentation',
+--     'Logement'
+--     );
+-- create table consomations(
+--
+--                              id serial primary key,
+--                              quantity int ,
+--                              date_debut date,
+--                              date_fin date,
+--                              type type_consomations,
+--                              user_id int,
+--                              foreign key (user_id) references users(id)
+--
+--
+-- )
+
+-- create table transports(
+--                            type_vehicule type_vehicule,
+--                            distancep_parcourue FLOAT
+-- )inherits (consomations);
+--
+-- CREATE TYPE type_vehicule AS ENUM ('Voiture', 'Train');
+
+
+-- CREATE TABLE alimentations (
+--                               type_alimentation type_aliment,
+--                               poids FLOAT
+-- )inherits (consomations);
+--
+-- CREATE TYPE type_aliment AS ENUM ('Legume', 'Viande');
+
+
+-- create table  longements (
+--     type_energie type_energie,
+--     consomation_energie FLOAT
+--
+--
+-- )inherits (consomations);
+--
+-- CREATE TYPE type_energie AS ENUM ('Electricite','Gaz');
