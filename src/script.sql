@@ -15,23 +15,6 @@
 -- );
 
 
--- create TYPE type_consomations as enum (
---     'transport',
---     'alimentation',
---     'logement'
---     );
--- create table consomations(
---
---                              id serial primary key,
---                              quantity int ,
---                              date_debut date,
---                              date_fin date,
---                              type type_consomations,
---                              user_id int,
---                              foreign key (user_id) references users(id)
---
---
--- )
 
 -- insert into users(name, age) values('zakaria', 20), ('mohamed', 25), ('ali', 30);
 
@@ -72,11 +55,10 @@
 -- )
 
 -- create table transports(
---                            type_vehicule type_vehicule,
+--                            type_vehicule varchar(250),
 --                            distancep_parcourue FLOAT
 -- )inherits (consomations);
 --
--- CREATE TYPE type_vehicule AS ENUM ('Voiture', 'Train');
 
 
 -- CREATE TABLE alimentations (
@@ -95,3 +77,73 @@
 -- )inherits (consomations);
 --
 -- CREATE TYPE type_energie AS ENUM ('Electricite','Gaz');
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------- new SQL
+
+-- -- CREATE TABLE users (
+-- --         id SERIAL PRIMARY KEY,
+-- --         name VARCHAR(255) NOT NULL,
+-- --         age INT NOT NULL
+-- --
+-- -- );
+-- create table consomations(
+--
+--                              id serial primary key not null ,
+--                              quantity int not null,
+--                              date_debut date not null,
+--                              date_fin date not null,
+--                              type_consomations varchar(50) check ( type_consomations IN ( 'Transport', 'Logement', 'Aimentation')) NOT NULL ,
+--                              user_id int not null,
+--                              foreign key (user_id) references users(id)
+--
+--
+-- );
+-- create table transports(
+--                            type_vehicule varchar(250) not null ,
+--                            distancep_parcourue FLOAT not null
+-- )inherits (consomations);
+--
+--
+--
+-- CREATE TABLE alimentations (
+--                                type_aliment varchar(250) not null,
+--                                poids FLOAT not null
+-- )inherits (consomations);
+--
+--
+-- create table  logements (
+--     type_energie varchar(250) not null,
+--     consomation_energie FLOAT not null
+--
+--
+-- )inherits (consomations);
+
+
+
+
+
+
+
+
+
+
+
+-- CREATE TABLE transports (
+--                             id SERIAL PRIMARY KEY,
+--                             quantity INT NOT NULL,
+--                             date_debut DATE NOT NULL,
+--                             date_fin DATE NOT NULL,
+--                             type_consomations VARCHAR(50) NOT NULL, -- Ensure this column is correctly defined
+--                             type_vehicule VARCHAR(50),
+--                             distancep_parcourue DOUBLE PRECISION
+-- );
+

@@ -3,48 +3,42 @@ package domain;
 import java.time.LocalDate;
 
 public class Transport extends Consomation {
-    private int distanceParcourue;
+    private double distanceParcourue;
     private String typeVehicule;
 
-    public Transport(int quantite, LocalDate dateDebut, LocalDate dateFin, int distanceParcourue, String typeDeVehicule) {
-        super(quantite, dateDebut, dateFin);
+    public Transport(int quantite, LocalDate dateDebut, LocalDate dateFin, double distanceParcourue, String typeVehicule) {
+        super(quantite, dateDebut, dateFin, TypeConsommation.Transport);
         this.distanceParcourue = distanceParcourue;
-        this.typeVehicule = typeDeVehicule;
+        this.typeVehicule = typeVehicule;
     }
 
     @Override
     public double calculerImpact() {
-        double impactConsomation = 0;
-        if (this.typeVehicule.equals("voiture")){
-            impactConsomation = 0.5;
-        }else {
-            impactConsomation = 0.1;
+        double impact = 0.0;
+        switch (typeVehicule.toLowerCase()) {
+            case "voiture":
+                impact = distanceParcourue * 0.5;
+                break;
+            case "train":
+                impact = distanceParcourue * 0.1;
+                break;
         }
-        return impactConsomation * this.distanceParcourue* super.getQuantite();
+        return impact;
     }
 
-
-    public int getDistanceParcourue() {
+    public double getDistanceParcourue() {
         return distanceParcourue;
     }
 
-    public String getTypeDeVehicule() {
-        return typeVehicule;
-    }
-
-    public void setDistanceParcourue(int distanceParcourue) {
+    public void setDistanceParcourue(double distanceParcourue) {
         this.distanceParcourue = distanceParcourue;
     }
 
-    public void setTypeDeVehicule(String typeDeVehicule) {
-        this.typeVehicule = typeDeVehicule;
+    public String getTypeVehicule() {
+        return typeVehicule;
     }
 
-    @Override
-    public String toString() {
-        return "Transport{" +
-                "distanceParcourue=" + distanceParcourue +
-                ", typeDeVehicule='" + typeVehicule + '\'' +
-                '}';
+    public void setTypeVehicule(String typeVehicule) {
+        this.typeVehicule = typeVehicule;
     }
 }

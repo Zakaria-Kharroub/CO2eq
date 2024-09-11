@@ -7,12 +7,14 @@ public abstract class Consomation {
     private LocalDate dateDebut;
     private LocalDate dateFin;
 
-    TypeConsomation typeConsomation;
+    private TypeConsommation typeConsommation;
 
-    public Consomation(int quantite, LocalDate dateDebut, LocalDate dateFin) {
+    public Consomation(int quantite, LocalDate dateDebut, LocalDate dateFin, TypeConsommation typeConsommation) {
         this.quantite = quantite;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+        this.typeConsommation = typeConsommation;
+
     }
     public abstract double calculerImpact();
 
@@ -31,6 +33,10 @@ public abstract class Consomation {
 
     public void setQuantite(int quantite) {
         this.quantite = quantite;
+    }
+
+    public TypeConsommation getTypeConsommation() {
+        return typeConsommation;
     }
 
 }

@@ -4,24 +4,26 @@ import java.time.LocalDate;
 
 public class Alimentation extends Consomation {
     private String typeAliment;
-    private double pois;
+    private double poids;
 
-
-    public Alimentation(int quantite, LocalDate dateDebut, LocalDate dateFin , String typeAliment, double pois) {
-        super(quantite,dateDebut,dateFin);
+    public Alimentation(int quantity, LocalDate dateDebut, LocalDate dateFin, String typeAliment, double poids) {
+        super(quantity, dateDebut, dateFin, TypeConsommation.Alimentation);
         this.typeAliment = typeAliment;
-        this.pois = pois;
+        this.poids = poids;
     }
 
     @Override
-    public double calculerImpact(){
-        double impactConsomation = 0;
-        if (this.typeAliment.equals("viande")){
-            impactConsomation= 5.0;
-        }else {
-            impactConsomation = 0.5;
+    public double calculerImpact() {
+        double impact = 0.0;
+        switch (typeAliment.toLowerCase()) {
+            case "viande":
+                impact = poids * 5.0;
+                break;
+            case "legume":
+                impact = poids * 0.5;
+                break;
         }
-        return impactConsomation * this.pois * super.getQuantite();
+        return impact;
     }
 
 
@@ -29,22 +31,23 @@ public class Alimentation extends Consomation {
         return typeAliment;
     }
 
-    public double getPois() {
-        return pois;
-    }
     public void setTypeAliment(String typeAliment) {
         this.typeAliment = typeAliment;
     }
 
-    public void setPois(double pois) {
-        this.pois = pois;
+    public double getPoids() {
+        return poids;
+    }
+
+    public void setPoids(double poids) {
+        this.poids = poids;
     }
 
     @Override
     public String toString() {
         return "Alimentation{" +
                 "typeAliment='" + typeAliment + '\'' +
-                ", pois=" + pois +
+                ", poids=" + poids +
                 '}';
     }
 }

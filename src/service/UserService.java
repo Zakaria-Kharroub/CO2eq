@@ -39,19 +39,8 @@ public class UserService {
        return userRepository.deleteUser(id);
     }
 
-    public void findById(int id){
-        try{
-            Optional<User> user = userRepository.findById(id);
-            if (user.isPresent()){
-                System.out.println("id : " +user.get().getId() + "name : "+ user.get().getName() + "age : " +user.get().getAge());
-
-            }else {
-                System.out.println("not found : "+id);
-            }
-
-        }catch (SQLException e){
-            System.out.println("error de affiche user by id "+e.getMessage());
-        }
+    public Optional<User> findById(int id) throws SQLException {
+        return userRepository.findById(id);
     }
 
 }
