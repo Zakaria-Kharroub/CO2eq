@@ -9,6 +9,28 @@ public class Transport extends Consomation {
     Consomation consomation;
 
 
+//    public double calculerImpact() {
+//        double impactConsumption=0;
+//        if(this.typeDeVehicule=="voiture") impactConsumption=0.5;
+//        else impactConsumption=0.1;
+//        return super.getCarbon()this.distanceParcourueimpactConsumption;
+//    }
+
+    @Override
+    public double calculerImpact() {
+        double impactConsomation = 0;
+        if (this.typeDeVehicule.equals("voiture")){
+            impactConsomation = 0.5;
+        }else {
+            impactConsomation = 0.1;
+        }
+        return impactConsomation * this.distanceParcourue* super.getQuantite();
+    }
+
+
+
+
+
 
     public Transport(LocalDate dateDebut, LocalDate dateFin,double quantite,TypeConsommation typeConsommation,User user, double distanceParcourue, String typeDeVehicule) {
         super(quantite, dateDebut, dateFin, typeConsommation,user);
@@ -21,6 +43,7 @@ public class Transport extends Consomation {
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -49,11 +72,13 @@ public class Transport extends Consomation {
 
     @Override
     public String toString() {
-        return "Transport{" +
-                "id=" + id +
-                ", distanceParcourue=" + distanceParcourue +
-                ", typeDeVehicule='" + typeDeVehicule + '\'' +
+        return
+                " id consomation :" + id + " " +
                 super.toString() +
-                '}';
+
+                ", typeDeVehicule : " + typeDeVehicule+
+                ", distanceParcourue :" + distanceParcourue
+
+                ;
     }
 }

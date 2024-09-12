@@ -18,6 +18,18 @@ public class Logement extends Consomation {
     public int getId() {
         return id;
     }
+
+    @Override
+    public double calculerImpact() {
+        double impactConsomation = 0;
+        if (this.typeEnergie.equals("electricite")){
+            impactConsomation = 1.5;
+        }else {
+            impactConsomation = 2.0;
+        }
+        return impactConsomation * this.consommationEnergie * super.getQuantite();
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -47,11 +59,11 @@ public class Logement extends Consomation {
 
     @Override
     public String toString() {
-        return "Logement{" +
-                "id=" + id +
-                ", consommationEnergie=" + consommationEnergie +
-                ", typeEnergie='" + typeEnergie + '\'' +
-                super.toString() +
-                '}';
+        return
+                " id consomation :" + id + " " +
+                 super.toString() +
+                 ", typeEnergie : " + typeEnergie+
+                 ", consommationEnergie :" + consommationEnergie
+                 ;
     }
 }

@@ -17,6 +17,25 @@ public class Alimentation  extends Consomation{
     public int getId() {
         return id;
     }
+
+
+//    public double calculerImpact() {
+//        double impactConsumption=0;
+//        if(this.typeDeVehicule=="voiture") impactConsumption=0.5;
+//        else impactConsumption=0.1;
+//        return super.getCarbon()this.distanceParcourueimpactConsumption;
+//    }
+    @Override
+    public double calculerImpact() {
+        double impactConsomation = 0;
+        if (this.typeAliment.equals("viande")){
+            impactConsomation= 5.0;
+        }else {
+            impactConsomation = 0.5;
+        }
+        return impactConsomation * this.poids* super.getQuantite();
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -44,12 +63,12 @@ public class Alimentation  extends Consomation{
 
     @Override
     public String toString() {
-        return "Alimentation{" +
-                "id=" + id +
-                ", poids=" + poids +
-                ", typeAliment='" + typeAliment + '\'' +
+        return
+                " id consomation :" + id + " " +
                 super.toString() +
-                '}';
+                ", typeAliment : " + typeAliment+
+                ", poids :" + poids
+        ;
     }
 
 }

@@ -2,7 +2,7 @@ package domain;
 
 import java.time.LocalDate;
 
-public class Consomation {
+public abstract class Consomation {
     private int id;
     private double quantite;
     private LocalDate dateDebut;
@@ -10,6 +10,8 @@ public class Consomation {
     private User user;
 
     private TypeConsommation typeConsommation;
+
+    public abstract double calculerImpact();
 
     public Consomation(double quantite, LocalDate dateDebut, LocalDate dateFin, TypeConsommation typeConsommation, User user) {
         this.quantite = quantite;
@@ -53,13 +55,13 @@ public class Consomation {
 
     @Override
     public String toString() {
-        return "Consomation{" +
-                "id=" + id +
+        return
+                user +
+                ", typeConsommation :" + typeConsommation +
                 ", quantite=" + quantite +
                 ", dateDebut=" + dateDebut +
-                ", dateFin=" + dateFin +
-                ", user=" + user +
-                ", typeConsommation=" + typeConsommation +
-                '}';
+                ", dateFin=" + dateFin
+
+                ;
     }
 }
