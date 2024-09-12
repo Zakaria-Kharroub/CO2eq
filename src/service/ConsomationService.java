@@ -1,32 +1,24 @@
 package service;
 
-import domain.Consomation;
+import domain.*;
 import repository.ConsomationRepository;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConsomationService {
-
     private ConsomationRepository consomationRepository;
 
     public ConsomationService(Connection connection) {
         this.consomationRepository = new ConsomationRepository(connection);
     }
 
-    public void addConsomation(Consomation consomation, int userId) throws SQLException {
-        consomationRepository.addConsomation(consomation, userId);
+    public void addConsomation(Consomation consomation, int userId) {
+        try {
+            consomationRepository.addConsomation(consomation, userId);
+            System.out.println("Consommation ajoutée avec succès");
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de l'ajout de la consommation: " + e.getMessage());
+        }
     }
-
-
-
-
-//    public List<UserEntity> detectInactiveUsers(List<UserEntity> users, LocalDate start, LocalDate endDate) {
-//        List<LocalDate> dates = DateUtils.dateListRange(start, endDate);
-//
-//        return users.stream()
-//                .filter(user -> user.getConsumptions().stream()
-//                        .noneMatch(consumption -> !DateUtils.isDateAvailable(consumption.getStartDate(), consumption.getEndDate(), dates)))
-//                .collect(Collectors.toList());
-//    }
 }

@@ -3,50 +3,55 @@ package domain;
 import java.time.LocalDate;
 
 public class Logement extends Consomation {
+    private int id;
+    private double consommationEnergie;
     private String typeEnergie;
-    private int consommationEnergie;
 
-    public Logement(int quantity, LocalDate dateDebut, LocalDate dateFin, String typeEnergie, int consommationEnergie) {
-        super(quantity, dateDebut, dateFin, TypeConsommation.Logement);
-        this.typeEnergie = typeEnergie;
+    private Consomation consomation;
+
+    public Logement(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation, double consommationEnergie, String typeEnergie) {
+        super(quantite, dateDebut, dateFin, typeConsommation);
         this.consommationEnergie = consommationEnergie;
+        this.typeEnergie = typeEnergie;
     }
 
-    @Override
-    public double calculerImpact() {
-        double impact = 0.0;
-        switch (typeEnergie.toLowerCase()) {
-            case "electricite":
-                impact = consommationEnergie * 1.5;
-                break;
-            case "gaz":
-                impact = consommationEnergie * 2.0;
-                break;
-        }
-        return impact;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Consomation getConsomation() {
+        return consomation;
+    }
+    public void setConsomation(Consomation consomation) {
+        this.consomation = consomation;
+    }
+
+    public double getConsommationEnergie() {
+        return consommationEnergie;
+    }
+
+    public void setConsommationEnergie(double consommationEnergie) {
+        this.consommationEnergie = consommationEnergie;
     }
 
     public String getTypeEnergie() {
         return typeEnergie;
     }
 
-    public int getConsommationEnergie() {
-        return consommationEnergie;
-    }
-
     public void setTypeEnergie(String typeEnergie) {
         this.typeEnergie = typeEnergie;
-    }
-
-    public void setConsommationEnergie(int consommationEnergie) {
-        this.consommationEnergie = consommationEnergie;
     }
 
     @Override
     public String toString() {
         return "Logement{" +
-                "typeEnergie='" + typeEnergie + '\'' +
+                "id=" + id +
                 ", consommationEnergie=" + consommationEnergie +
+                ", typeEnergie='" + typeEnergie + '\'' +
+                ", consomation=" + consomation.getId() +
                 '}';
     }
 }

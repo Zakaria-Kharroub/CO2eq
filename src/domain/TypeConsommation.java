@@ -1,6 +1,7 @@
 package domain;
 
 public enum TypeConsommation {
-    Transport, Logement, Alimentation
-
+    TRANSPORT,
+    LOGEMENT,
+    ALIMENTATION
 }

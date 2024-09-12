@@ -15,60 +15,54 @@ public class ConsomationRepository {
     }
 
     public void addConsomation(Consomation consomation, int userId) throws SQLException {
-//        System.out.println(consomation.getQuantite()); //just pour debuger
-
-        String query = "INSERT INTO consomations (quantity, date_debut, date_fin, type_consomations, user_id) VALUES (?, ?, ?, ?, ?)";
-        try(PreparedStatement pstmt = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
-
-            pstmt.setInt(1, consomation.getQuantite());
-            pstmt.setDate(2, java.sql.Date.valueOf(consomation.getDateDebut()));
-            pstmt.setDate(3, java.sql.Date.valueOf(consomation.getDateFin()));
-            pstmt.setString(4, consomation.getTypeConsommation().name());
-            pstmt.setInt(5, userId);
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows ==0) {
-                throw new SQLException("creatig consomation failed, no rows affected");
-            }
-
-            try (var rs = pstmt.getGeneratedKeys()) {
-                if (rs.next()) {
-                    int consomationId = rs.getInt(1);
-                    if (consomation instanceof Transport) {
-                        addTransport((Transport) consomation, consomationId);
-                    }
-                }
-            }
+        if (consomation instanceof Transport) {
+            addTransport((Transport) consomation, userId);
+        } else if (consomation instanceof Logement) {
+            addLogement((Logement) consomation, userId);
+        } else if (consomation instanceof Alimentation) {
+            addAlimentation((Alimentation) consomation, userId);
         }
     }
 
-    private void addTransport(Transport transport, int consomationId) throws SQLException {
-        String query = "INSERT INTO transports (id, quantity, date_debut, date_fin, type_consomations, type_vehicule, distancep_parcourue) VALUES (?, ?, ?,?,?, ?,?)";
-        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setInt(1, consomationId);
-            pstmt.setInt(2, transport.getQuantite());
-            pstmt.setDate(3, java.sql.Date.valueOf(transport.getDateDebut()));
-            pstmt.setDate(4, java.sql.Date.valueOf(transport.getDateFin()));
-            pstmt.setString(5, transport.getTypeConsommation().name());
-            pstmt.setString(6, transport.getTypeVehicule());
-            pstmt.setDouble(7, transport.getDistanceParcourue());
+    private void addTransport(Transport transport, int userId) throws SQLException {
+        String sql = "INSERT INTO transports (quantite, date_debut, date_fin, user_id, type_consomation, type_vehicule, distance_parcourue) " +
+                "VALUES (?, ?, ?, ?, 'TRANSPORT', ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, transport.getQuantite());
+            pstmt.setDate(2, java.sql.Date.valueOf(transport.getDateDebut()));
+            pstmt.setDate(3, java.sql.Date.valueOf(transport.getDateFin()));
+            pstmt.setInt(4, userId);
+            pstmt.setString(5, transport.getTypeDeVehicule());
+            pstmt.setDouble(6, transport.getDistanceParcourue());
             pstmt.executeUpdate();
         }
     }
 
+    private void addLogement(Logement logement, int userId) throws SQLException {
+        String sql = "INSERT INTO logements (quantite, date_debut, date_fin, user_id, type_consomation, consommation_energie, type_energie) " +
+                "VALUES (?, ?, ?, ?, 'LOGEMENT', ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, logement.getQuantite());
+            pstmt.setDate(2, java.sql.Date.valueOf(logement.getDateDebut()));
+            pstmt.setDate(3, java.sql.Date.valueOf(logement.getDateFin()));
+            pstmt.setInt(4, userId);
+            pstmt.setDouble(5, logement.getConsommationEnergie());
+            pstmt.setString(6, logement.getTypeEnergie());
+            pstmt.executeUpdate();
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private void addAlimentation(Alimentation alimentation, int userId) throws SQLException {
+        String sql = "INSERT INTO alimentations (quantite, date_debut, date_fin, user_id, type_consomation, poids, type_aliment) " +
+                "VALUES (?, ?, ?, ?, 'ALIMENTATION', ?, ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setDouble(1, alimentation.getQuantite());
+            pstmt.setDate(2, java.sql.Date.valueOf(alimentation.getDateDebut()));
+            pstmt.setDate(3, java.sql.Date.valueOf(alimentation.getDateFin()));
+            pstmt.setInt(4, userId);
+            pstmt.setDouble(5, alimentation.getPoids());
+            pstmt.setString(6, alimentation.getTypeAliment());
+            pstmt.executeUpdate();
+        }
+    }
 }

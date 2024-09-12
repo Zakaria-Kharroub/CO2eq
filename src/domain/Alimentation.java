@@ -2,52 +2,54 @@ package domain;
 
 import java.time.LocalDate;
 
-public class Alimentation extends Consomation {
-    private String typeAliment;
+public class Alimentation  extends Consomation{
+    private int id;
     private double poids;
+    private String typeAliment;
+    Consomation consomation;
 
-    public Alimentation(int quantity, LocalDate dateDebut, LocalDate dateFin, String typeAliment, double poids) {
-        super(quantity, dateDebut, dateFin, TypeConsommation.Alimentation);
-        this.typeAliment = typeAliment;
+   public Alimentation(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation, double poids, String typeAliment) {
+        super(quantite, dateDebut, dateFin, typeConsommation);
         this.poids = poids;
-    }
-
-    @Override
-    public double calculerImpact() {
-        double impact = 0.0;
-        switch (typeAliment.toLowerCase()) {
-            case "viande":
-                impact = poids * 5.0;
-                break;
-            case "legume":
-                impact = poids * 0.5;
-                break;
-        }
-        return impact;
-    }
-
-
-    public String getTypeAliment() {
-        return typeAliment;
-    }
-
-    public void setTypeAliment(String typeAliment) {
         this.typeAliment = typeAliment;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Consomation getConsomation() {
+        return consomation;
+    }
+    public void setConsomation(Consomation consomation) {
+        this.consomation = consomation;
     }
 
     public double getPoids() {
         return poids;
     }
-
     public void setPoids(double poids) {
         this.poids = poids;
     }
+    public String getTypeAliment() {
+        return typeAliment;
+    }
+    public void setTypeAliment(String typeAliment) {
+        this.typeAliment = typeAliment;
+    }
+
 
     @Override
     public String toString() {
         return "Alimentation{" +
-                "typeAliment='" + typeAliment + '\'' +
+                "id=" + id +
                 ", poids=" + poids +
+                ", typeAliment='" + typeAliment + '\'' +
+                ", consomation=" + consomation.getId() +
                 '}';
     }
+
 }

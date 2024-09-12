@@ -3,27 +3,34 @@ package domain;
 import java.time.LocalDate;
 
 public class Transport extends Consomation {
+    private int id;
     private double distanceParcourue;
-    private String typeVehicule;
+    private String typeDeVehicule;
+    Consomation consomation;
 
-    public Transport(int quantite, LocalDate dateDebut, LocalDate dateFin, double distanceParcourue, String typeVehicule) {
-        super(quantite, dateDebut, dateFin, TypeConsommation.Transport);
+
+
+    public Transport(LocalDate dateDebut, LocalDate dateFin,double quantite,TypeConsommation typeConsommation, double distanceParcourue, String typeDeVehicule) {
+        super(quantite, dateDebut, dateFin, typeConsommation);
         this.distanceParcourue = distanceParcourue;
-        this.typeVehicule = typeVehicule;
+        this.typeDeVehicule = typeDeVehicule;
     }
 
-    @Override
-    public double calculerImpact() {
-        double impact = 0.0;
-        switch (typeVehicule.toLowerCase()) {
-            case "voiture":
-                impact = distanceParcourue * 0.5;
-                break;
-            case "train":
-                impact = distanceParcourue * 0.1;
-                break;
-        }
-        return impact;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Consomation getConsomation() {
+        return consomation;
+    }
+    public void setConsomation(Consomation consomation) {
+        this.consomation = consomation;
     }
 
     public double getDistanceParcourue() {
@@ -33,12 +40,20 @@ public class Transport extends Consomation {
     public void setDistanceParcourue(double distanceParcourue) {
         this.distanceParcourue = distanceParcourue;
     }
-
-    public String getTypeVehicule() {
-        return typeVehicule;
+    public String getTypeDeVehicule() {
+        return typeDeVehicule;
+    }
+    public void setTypeDeVehicule(String typeDeVehicule) {
+        this.typeDeVehicule = typeDeVehicule;
     }
 
-    public void setTypeVehicule(String typeVehicule) {
-        this.typeVehicule = typeVehicule;
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "id=" + id +
+                ", distanceParcourue=" + distanceParcourue +
+                ", typeDeVehicule='" + typeDeVehicule + '\'' +
+                ", consomation=" + consomation.getId() +
+                '}';
     }
 }
