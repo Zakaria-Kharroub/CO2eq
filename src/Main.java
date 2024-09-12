@@ -33,18 +33,22 @@ public class Main {
         int choix;
 
         do {
-            System.out.println("+------------------------------------------+");
-            System.out.println("|                   Menu                   |");
-            System.out.println("+------------------------------------------+");
-            System.out.println("| 1 - ajouter utilisateur                  |");
-            System.out.println("| 2 - afficher tous les utilisateurs       |");
-            System.out.println("| 3   update utilisateur                   |");
-            System.out.println("| 4   delete utilisateur                   |");
-            System.out.println("| 5   find utilisateur by id               |");
-            System.out.println("| 6 - ajouter consomation                  |");
-            System.out.println("| 7 - afficher detail user consomation     |");
-            System.out.println("| 8 - exit                                 |");
-            System.out.println("+------------------------------------------+");
+            System.out.println("+-----------------------------------------------------------------+");
+            System.out.println("|                           Menu                                  |");
+            System.out.println("+-----------------------------------------------------------------+");
+            System.out.println("| 1  - ajouter utilisateur                                        |");
+            System.out.println("| 2  - afficher tous les utilisateurs                             |");
+            System.out.println("| 3  - update utilisateur                                         |");
+            System.out.println("| 4  - delete utilisateur                                         |");
+            System.out.println("| 5  - find utilisateur by id                                     |");
+            System.out.println("| 6  - ajouter consomation                                        |");
+            System.out.println("| 7  - afficher detail user consomation                           |");
+            System.out.println("| 8  - filtrage des utilisateurs depasse 3000 kg de CO2           |");
+            System.out.println("| 9  - detecter les utlisateur inactif dans une periode           |");
+            System.out.println("| 10 - calcul impactConsomation moyenne par user dans une periode |");
+            System.out.println("| 11 - tri des utilisateurs par impactConsomation                 |");
+            System.out.println("| 12 - exit                                                       |");
+            System.out.println("+-----------------------------------------------------------------+");
 
             choix = inp.nextInt();
 
@@ -297,11 +301,43 @@ public class Main {
                     }
                     break;
 
-
-
-
-
                 case 8:
+                    System.out.println("filtrage des utilisateurs depasse 3000 kg de CO2");
+                    break;
+
+                case 9:
+                    System.out.println("detecter les utlisateur inactif dans une periode");
+
+                    System.out.println("enter date debut (YYYY-MM-DD):");
+                    LocalDate dateDebutPeriode = LocalDate.parse(inp.nextLine());
+
+                    System.out.println("enter date fin (YYYY-MM-DD):");
+                    LocalDate dateFinPeriode = LocalDate.parse(inp.nextLine());
+
+                    System.out.println("voici la liste des utilisateurs inactif cette periode");
+
+                    break;
+
+                case 10:
+                    System.out.println("calcul impactConsomation moyenne par user dans une periode");
+                    System.out.println("enter date debut (YYYY-MM-DD):");
+                    LocalDate dateDebutPeriodeMoyenne = LocalDate.parse(inp.nextLine());
+
+                    System.out.println("enter date fin (YYYY-MM-DD):");
+                    LocalDate dateFinPeriodeMoyenne = LocalDate.parse(inp.nextLine());
+
+
+                    break;
+
+                case 11:
+                    System.out.println("tri des utilisateurs par impactConsomation");
+                    break;
+
+
+
+
+
+                case 12:
                     System.out.println("exit");
                     break;
                 default:
@@ -310,7 +346,7 @@ public class Main {
             }
 
 
-        }while (choix != 8);
+        }while (choix != 12);
 
 
 
