@@ -6,10 +6,7 @@ import service.UserService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
@@ -45,7 +42,8 @@ public class Main {
             System.out.println("| 4   delete utilisateur                   |");
             System.out.println("| 5   find utilisateur by id               |");
             System.out.println("| 6 - ajouter consomation                  |");
-            System.out.println("| 7 - exit                                 |");
+            System.out.println("| 7 - afficher detail user consomation     |");
+            System.out.println("| 8 - exit                                 |");
             System.out.println("+------------------------------------------+");
 
             choix = inp.nextInt();
@@ -188,8 +186,12 @@ public class Main {
                                 System.out.println("enter la distance parcourue:");
                                 double distanceParcourue = inp.nextDouble();
                                 inp.nextLine();
-
-                                Transport transport = new Transport(dateDebut, dateFin, quantite, TypeConsommation.TRANSPORT, distanceParcourue, typeVehicule);
+                                Optional<User> foundUser = userService.findById(idUserCons);
+                                if (foundUser.isEmpty()) {
+                                    System.out.println("utilisateur non trouvé.");
+                                    break;
+                                }
+                                Transport transport = new Transport(dateDebut, dateFin, quantite, TypeConsommation.TRANSPORT,foundUser.get(), distanceParcourue, typeVehicule);
                                 consomationService.addConsomation(transport, idUserCons);
                                 break;
 
@@ -209,7 +211,12 @@ public class Main {
                                 double consommationEnergie = inp.nextDouble();
                                 inp.nextLine();
 
-                                Logement logement = new Logement(dateDebut, dateFin, quantite, TypeConsommation.LOGEMENT, consommationEnergie, typeEnergie);
+                                Optional<User> foundUserLog = userService.findById(idUserCons);
+                                if (foundUserLog.isEmpty()) {
+                                    System.out.println("utilisateur non trouvé.");
+                                    break;
+                                }
+                                Logement logement = new Logement(dateDebut, dateFin, quantite, TypeConsommation.LOGEMENT,foundUserLog.get(), consommationEnergie, typeEnergie);
                                 consomationService.addConsomation(logement, idUserCons);
                                 break;
 
@@ -228,8 +235,13 @@ public class Main {
                                 System.out.println("enter le poids:");
                                 double poids = inp.nextDouble();
                                 inp.nextLine();
+                                Optional<User> foundUserAlim = userService.findById(idUserCons);
+                                if (foundUserAlim.isEmpty()) {
+                                    System.out.println("utilisateur non trouvé.");
+                                    break;
+                                }
 
-                                Alimentation alimentation = new Alimentation(dateDebut, dateFin, quantite, TypeConsommation.ALIMENTATION, poids, typeAliment);
+                                Alimentation alimentation = new Alimentation(dateDebut, dateFin, quantite, TypeConsommation.ALIMENTATION,foundUserAlim.get(), poids, typeAliment);
                                 consomationService.addConsomation(alimentation, idUserCons);
                                 break;
 
@@ -243,8 +255,51 @@ public class Main {
                     break;
 
 
-
                 case 7:
+                    System.out.println("afficher detail user consomation");
+                    System.out.println("enter id de utilisateur");
+                    int idUserConsDetails = inp.nextInt();
+                    inp.nextLine();
+
+                    Optional<User> foundUser = userService.findById(idUserConsDetails);
+
+                    try {
+                        if (foundUser.isEmpty()) {
+                            System.out.println("utilisateur not found.");
+                            break;
+                        }
+
+                        List<ArrayList> consomations = consomationService.getUserConsomations(foundUser.get());
+//                        System.out.println("nombre de consomation: " + consomations.size());
+
+                        if (!consomations.isEmpty()) {
+                            consomations.forEach(list -> {
+                                if (list != null && !list.isEmpty()) {
+                                    list.forEach(consomationItem -> {
+                                        if (consomationItem != null) {
+                                            System.out.println(consomationItem);
+                                        } else {
+                                            System.out.println("Consomation is null");
+                                        }
+                                    });
+                                } else {
+                                    System.out.println("Liste de consommations est vide ");
+                                }
+                            });
+                        } else {
+                            System.out.println("pas consomation pour ce utilisateur.");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println("error affichage de consomations " + e.getMessage());
+                    }
+                    break;
+
+
+
+
+
+                case 8:
                     System.out.println("exit");
                     break;
                 default:
@@ -253,7 +308,7 @@ public class Main {
             }
 
 
-        }while (choix != 7);
+        }while (choix != 8);
 
 
 

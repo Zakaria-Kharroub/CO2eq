@@ -194,31 +194,105 @@ CREATE TABLE alimentations (
 -- ===================================
 -- =============================== final result
 -- Table de base Consomation
-CREATE TABLE consomations (
-                              id SERIAL PRIMARY KEY,
-                              quantite DOUBLE PRECISION NOT NULL,
-                              date_debut DATE NOT NULL,
-                              date_fin DATE NOT NULL,
-                              user_id INT NOT NULL REFERENCES users(id),
-                              type_consomation VARCHAR(50) NOT NULL
+-- CREATE TABLE consomations (
+--                               id SERIAL PRIMARY KEY,
+--                               quantite DOUBLE PRECISION NOT NULL,
+--                               date_debut DATE NOT NULL,
+--                               date_fin DATE NOT NULL,
+--                               user_id INT NOT NULL REFERENCES users(id),
+--                               type_consomation VARCHAR(50) NOT NULL
+-- );
+--
+-- -- Table Transport hérite de Consomation
+-- CREATE TABLE transports (
+--                             type_vehicule VARCHAR(250),
+--                             distance_parcourue double precision
+-- ) INHERITS (consomations);
+--
+-- -- Table Logement hérite de Consomation
+-- CREATE TABLE logements (
+--                            type_energie VARCHAR(50),
+--                            consommation_energie double precision
+--
+-- ) INHERITS (consomations);
+--
+-- -- Table Alimentation hérite de Consomation
+-- CREATE TABLE alimentations (
+--                                type_aliment VARCHAR(50),
+--                                poids double precision
+-- ) INHERITS (consomations);
+
+
+
+
+
+-- =============================================================================
+create table users
+(
+    id   serial
+        primary key,
+    name varchar(255),
+    age  integer
 );
 
--- Table Transport hérite de Consomation
-CREATE TABLE transports (
-                            type_vehicule VARCHAR(250),
-                            distance_parcourue double precision
-) INHERITS (consomations);
+alter table users
+    owner to "GreenPulse";
 
--- Table Logement hérite de Consomation
-CREATE TABLE logements (
-                           type_energie VARCHAR(50),
-                           consommation_energie double precision
+create table consommations
+(
+    id               serial
+        primary key,
+    quantite         double precision not null,
+    date_debut       date             not null,
+    date_fin         date             not null,
+    user_id          integer          not null
+        references users,
+    type_consomation varchar(50)      not null
+);
 
-) INHERITS (consomations);
+alter table consommations
+    owner to "GreenPulse";
 
--- Table Alimentation hérite de Consomation
-CREATE TABLE alimentations (
-                               type_aliment VARCHAR(50),
-                               poids double precision
-) INHERITS (consomations);
+create table transports
+(
+    type_vehicule      varchar(250),
+    distance_parcourue double precision
+)
+    inherits (consommations);
+
+alter table transports
+    owner to "GreenPulse";
+
+create table logements
+(
+    consommation_energie double precision,
+    type_energie         varchar(50)
+)
+    inherits (consommations);
+
+alter table logements
+    owner to "GreenPulse";
+
+create table alimentations
+(
+    type_aliment varchar(50),
+    poids        double precision
+)
+    inherits (consommations);
+
+alter table alimentations
+    owner to "GreenPulse";
+
+
+
+
+
+
+
+
+
+
+
+
+
 

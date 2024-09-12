@@ -8,8 +8,8 @@ public class Alimentation  extends Consomation{
     private String typeAliment;
     Consomation consomation;
 
-   public Alimentation(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation, double poids, String typeAliment) {
-        super(quantite, dateDebut, dateFin, typeConsommation);
+   public Alimentation(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation,User user, double poids, String typeAliment) {
+        super(quantite, dateDebut, dateFin, typeConsommation,user);
         this.poids = poids;
         this.typeAliment = typeAliment;
     }
@@ -48,7 +48,7 @@ public class Alimentation  extends Consomation{
                 "id=" + id +
                 ", poids=" + poids +
                 ", typeAliment='" + typeAliment + '\'' +
-                ", consomation=" + consomation.getId() +
+                super.toString() +
                 '}';
     }
 

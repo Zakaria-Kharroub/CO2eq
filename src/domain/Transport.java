@@ -10,8 +10,8 @@ public class Transport extends Consomation {
 
 
 
-    public Transport(LocalDate dateDebut, LocalDate dateFin,double quantite,TypeConsommation typeConsommation, double distanceParcourue, String typeDeVehicule) {
-        super(quantite, dateDebut, dateFin, typeConsommation);
+    public Transport(LocalDate dateDebut, LocalDate dateFin,double quantite,TypeConsommation typeConsommation,User user, double distanceParcourue, String typeDeVehicule) {
+        super(quantite, dateDebut, dateFin, typeConsommation,user);
         this.distanceParcourue = distanceParcourue;
         this.typeDeVehicule = typeDeVehicule;
     }
@@ -53,7 +53,7 @@ public class Transport extends Consomation {
                 "id=" + id +
                 ", distanceParcourue=" + distanceParcourue +
                 ", typeDeVehicule='" + typeDeVehicule + '\'' +
-                ", consomation=" + consomation.getId() +
+                super.toString() +
                 '}';
     }
 }

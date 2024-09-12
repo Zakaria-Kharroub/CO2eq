@@ -9,8 +9,8 @@ public class Logement extends Consomation {
 
     private Consomation consomation;
 
-    public Logement(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation, double consommationEnergie, String typeEnergie) {
-        super(quantite, dateDebut, dateFin, typeConsommation);
+    public Logement(LocalDate dateDebut, LocalDate dateFin, double quantite, TypeConsommation typeConsommation,User user, double consommationEnergie, String typeEnergie) {
+        super(quantite, dateDebut, dateFin, typeConsommation,user);
         this.consommationEnergie = consommationEnergie;
         this.typeEnergie = typeEnergie;
     }
@@ -51,7 +51,7 @@ public class Logement extends Consomation {
                 "id=" + id +
                 ", consommationEnergie=" + consommationEnergie +
                 ", typeEnergie='" + typeEnergie + '\'' +
-                ", consomation=" + consomation.getId() +
+                super.toString() +
                 '}';
     }
 }
