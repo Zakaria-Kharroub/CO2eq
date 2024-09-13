@@ -260,49 +260,44 @@ public class Main {
 
 
                 case 7:
-                    System.out.println("afficher detail user consomation");
-                    System.out.println("enter id de utilisateur");
+                    System.out.println("afficher details comsomations de user");
+                    System.out.println("enter id user :");
                     int idUserConsDetails = inp.nextInt();
                     inp.nextLine();
 
                     Optional<User> foundUser = userService.findById(idUserConsDetails);
 
-                    try {
-                        if (foundUser.isEmpty()) {
-                            System.out.println("utilisateur not found.");
-                            break;
-                        }
+                    if (foundUser.isEmpty()) {
+                        System.out.println("Utilisateur not found.");
+                        break;
+                    }
 
-                        List<ArrayList> consomations = consomationService.getUserConsomations(foundUser.get());
-//                        System.out.println("nombre de consomation: " + consomations.size());
+                    try {
+                        List<Consomation> consomations= consomationService.getUserConsomations(foundUser.get());
 
                         if (!consomations.isEmpty()) {
-                            consomations.forEach(list -> {
-                                if (list != null && !list.isEmpty()) {
-                                    list.forEach(consomationItem -> {
-                                        if (consomationItem != null) {
-                                            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                                            System.out.println(consomationItem);
-                                            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                                        } else {
-                                            System.out.println("Consomation is null");
-                                        }
-                                    });
+                            consomations.forEach(consomation -> {
+                                if (consomation != null) {
+                                    System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                                    System.out.println(consomation);
+                                    System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
                                 } else {
-                                    System.out.println("Liste de consommations est vide ");
+                                    System.out.println("Consommation est null");
                                 }
                             });
                         } else {
-                            System.out.println("pas consomation pour ce utilisateur.");
+                            System.out.println("Pas de consommation pour cet user.");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        System.err.println("error affichage de consomations " + e.getMessage());
+                        System.err.println("error daffichage des consommations : " + e.getMessage());
                     }
                     break;
 
                 case 8:
                     System.out.println("filtrage des utilisateurs depasse 3000 kg de CO2");
+                    consomationService.CalculConsomationImact().forEach(user -> System.out.println("id: " + user.getId() + " name: " + user.getName() + " age: " + user.getAge()));
+
                     break;
 
                 case 9:
