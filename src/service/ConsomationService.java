@@ -2,11 +2,14 @@ package service;
 
 import Config.DbConnection;
 import domain.*;
+import jdk.jshell.execution.Util;
 import repository.ConsomationRepository;
 import repository.UserRepository;
+import util.DateUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,6 +19,8 @@ public class ConsomationService {
     private Connection connection = DbConnection.getInstance().getConnection();
 
     private ConsomationRepository consomationRepository;
+    UserRepository userRepository = new UserRepository(connection);
+
 
     public ConsomationService(Connection connection) {
         this.consomationRepository = new ConsomationRepository(connection);
@@ -58,6 +63,30 @@ public class ConsomationService {
                 .filter(e -> calculerImpactTotal(e) > 3000)
                 .collect(Collectors.toList());
 
+    }
+
+
+    public double moyenneConsByPeriode(int userId, LocalDate dateDebut, LocalDate dateFin) throws SQLException {
+        if (!dateDebut.isAfter(dateFin)) {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("user de id "+userId + " existe pas."));
+
+            List<Consomation> consomations = consomationRepository.getUserConsomations(user);
+
+            List<LocalDate> dates = DateUtils.dateLitRange(dateDebut, dateFin);
+
+            List<Consomation> consomationsPeriode = consomations.stream()
+                    .filter(consomation -> !(consomation.getDateDebut().isAfter(dateFin) || consomation.getDateFin().isBefore(dateDebut)))
+                    .collect(Collectors.toList());
+
+            double impactTotal = consomationsPeriode.stream()
+                    .mapToDouble(Consomation::calculerImpact)
+                    .sum();
+
+            return impactTotal / dates.size();
+        } else {
+            throw new IllegalArgumentException("error de date debut > date fin");
+        }
     }
 
 

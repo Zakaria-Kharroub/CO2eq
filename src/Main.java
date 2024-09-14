@@ -315,13 +315,19 @@ public class Main {
 
                 case 10:
                     System.out.println("calcul impactConsomation moyenne par user dans une periode");
-                    System.out.println("enter date debut (YYYY-MM-DD):");
+                    System.out.println("enter id user");
+                    int idUserMoyenne = inp.nextInt();
+                    inp.nextLine();
+
+                    System.out.println("enter date debut (YYYY-MM-DD)");
                     LocalDate dateDebutPeriodeMoyenne = LocalDate.parse(inp.nextLine());
 
-                    System.out.println("enter date fin (YYYY-MM-DD):");
+                    System.out.println("enter date fin (YYYY-MM-DD)");
                     LocalDate dateFinPeriodeMoyenne = LocalDate.parse(inp.nextLine());
 
+                    double moyenneImpact = consomationService.moyenneConsByPeriode(idUserMoyenne,dateDebutPeriodeMoyenne,dateFinPeriodeMoyenne);
 
+                    System.out.println("consomation moyenne dans " + dateDebutPeriodeMoyenne + " -> " + dateFinPeriodeMoyenne + " : " + moyenneImpact + " kgCo2");
                     break;
 
                 case 11:

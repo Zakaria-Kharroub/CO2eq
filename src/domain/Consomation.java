@@ -33,9 +33,7 @@ public abstract class Consomation {
         this.user = user;
     }
 
-    public int getId() {
-        return id;
-    }
+
 
     public double getQuantite() {
         return quantite;
