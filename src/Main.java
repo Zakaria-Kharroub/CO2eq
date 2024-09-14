@@ -345,6 +345,18 @@ public class Main {
 
                 case 11:
                     System.out.println("tri des utilisateurs par impactConsomation");
+                    List<User> users = userService.afficherUsers();
+                    users.stream()
+//                            .sorted(Comparator.comparingDouble(user -> {
+//                                return consomationService.calculerImpactTotal(user);
+//                            }))
+
+                            .sorted((u1,u2) -> Double.compare(consomationService.calculerImpactTotal(u2),consomationService.calculerImpactTotal(u1)) )
+
+
+                            .forEach(user -> {
+                                System.out.println("id: " + user.getId() + ", name: " + user.getName() + ", age: " + user.getAge() + ", impact: " + consomationService.calculerImpactTotal(user) + " kgCO2");
+                            });
 
                     break;
 
