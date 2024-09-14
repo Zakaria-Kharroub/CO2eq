@@ -91,6 +91,26 @@ public class ConsomationService {
 
 
 
+    public List<User> detectInactiveUsers(LocalDate dateDebut, LocalDate dateFin) throws SQLException {
+        List<User> users = userRepository.afficherUsers();
+        List<User> inactiveUsers = new ArrayList<>();
+
+        for (User user : users) {
+            List<Consomation> consomations = consomationRepository.getUserConsomations(user);
+            boolean isActive = consomations.stream()
+                    .anyMatch(consomation -> !(consomation.getDateDebut().isAfter(dateFin) || consomation.getDateFin().isBefore(dateDebut)));
+            if (!isActive) {
+                inactiveUsers.add(user);
+            }
+        }
+        return inactiveUsers;
+    }
+
+
+
+
+
+
 
 
 

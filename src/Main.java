@@ -301,15 +301,28 @@ public class Main {
                     break;
 
                 case 9:
-                    System.out.println("detecter les utlisateur inactif dans une periode");
 
+                    System.out.println("detecter les utlisateur inactif dans une periode");
+                    inp.nextLine();
                     System.out.println("enter date debut (YYYY-MM-DD):");
+
                     LocalDate dateDebutPeriode = LocalDate.parse(inp.nextLine());
 
-                    System.out.println("enter date fin (YYYY-MM-DD):");
+                    System.out.println("enter date fin (YYYY-MM-DD)");
                     LocalDate dateFinPeriode = LocalDate.parse(inp.nextLine());
 
-                    System.out.println("voici la liste des utilisateurs inactif cette periode");
+                    try {
+                        List<User> inactiveUsers = consomationService.detectInactiveUsers(dateDebutPeriode, dateFinPeriode);
+                        if (inactiveUsers.isEmpty()) {
+                            System.out.println("aucum user inatif dans periode");
+                        } else {
+                            System.out.println("les utilisateurs inactifs dans periode " + dateDebutPeriode + " -> " + dateFinPeriode + ":");
+                            inactiveUsers.forEach(user -> System.out.println("id: " + user.getId() + ", name: " + user.getName() + ", age: " + user.getAge()));
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("Erreur lors de la détection des utilisateurs inactifs: " + e.getMessage());
+                    }
+
 
                     break;
 
@@ -332,6 +345,7 @@ public class Main {
 
                 case 11:
                     System.out.println("tri des utilisateurs par impactConsomation");
+
                     break;
 
 
