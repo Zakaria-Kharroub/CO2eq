@@ -10,6 +10,8 @@ import util.DateUtils;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,6 +107,69 @@ public class ConsomationService {
         }
         return inactiveUsers;
     }
+
+
+
+    public void rapportConsomationDaily(int userId) throws SQLException {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user de id "+userId+ " existe pas."));
+
+        List<Consomation> consomations= getUserConsomations(user);
+
+        if (consomations.isEmpty()) {
+            System.out.println("pas de comsomation pour ce user " +user.getName());
+            return;
+        }
+        consomations.forEach(consomation -> {
+            LocalDate startDate = consomation.getDateDebut();
+            LocalDate endDate = consomation.getDateFin();
+
+            List<LocalDate> rangeDate = DateUtils.dateLitRange(startDate, endDate);
+
+            long totalDays= rangeDate.size();
+            double consomationDaily= consomation.getQuantite() /totalDays;
+            rangeDate.stream().forEach(date ->
+                    System.out.println("dans " +date + ", consome "+ consomationDaily +" mg")
+            );
+        });
+    }
+
+
+
+    public void rapportConsomationMontly(int userId) throws SQLException {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("user de id "+userId+ " existe pas."));
+
+        List<Consomation> consomations= getUserConsomations(user);
+
+        if (consomations.isEmpty()) {
+            System.out.println("pas de comsomation pour ce user " +user.getName());
+            return;
+        }
+
+        consomations.forEach(consomation -> {
+            LocalDate startDate = consomation.getDateDebut();
+            LocalDate endDate = consomation.getDateFin();
+
+            long totalMonths = ChronoUnit.MONTHS.between(YearMonth.from(startDate), YearMonth.from(endDate)) +1;
+            double consomationMonthly = consomation.getQuantite() /totalMonths;
+
+            YearMonth startMonth = YearMonth.from(startDate);
+            YearMonth endMonth = YearMonth.from(endDate);
+
+            for (YearMonth month =startMonth; !month.isAfter(endMonth); month = month.plusMonths(1)) {
+                System.out.println("dans " + month + " concome " +consomationMonthly+ " mg");
+            }
+        });
+    }
+
+
+
+
+
+
 
 
 

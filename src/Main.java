@@ -47,7 +47,8 @@ public class Main {
             System.out.println("| 9  - detecter les utlisateur inactif dans une periode           |");
             System.out.println("| 10 - calcul impactConsomation moyenne par user dans une periode |");
             System.out.println("| 11 - tri des utilisateurs par impactConsomation                 |");
-            System.out.println("| 12 - exit                                                       |");
+            System.out.println("| 12 - generate rapport                                           |");
+            System.out.println("| 13 - exit                                                       |");
             System.out.println("+-----------------------------------------------------------------+");
 
             choix = inp.nextInt();
@@ -361,10 +362,59 @@ public class Main {
                     break;
 
 
-
-
-
                 case 12:
+                    System.out.println("generate rapport");
+
+                    int choixRapport;
+                    do {
+                        System.out.println("+-----------------------------+");
+                        System.out.println("|         rapport             |");
+                        System.out.println("+-----------------------------+");
+                        System.out.println("| 1 - rapport daily           |");
+                        System.out.println("| 2 - rapport weekly          |");
+                        System.out.println("| 3 - rapport monthly         |");
+                        System.out.println("| 4 - exit                    |");
+                        System.out.println("+-----------------------------+");
+                    choixRapport = inp.nextInt();
+                    switch (choixRapport){
+                        case 1:
+                            System.out.println("rapport daily");
+                            System.out.println("enter id de user");
+                            int userId = inp.nextInt();
+                            consomationService.rapportConsomationDaily(userId);
+                            break;
+                        case 2:
+                            System.out.println("rapport weekly");
+                            System.out.println("enter id de user");
+                            int userIdWeekly = inp.nextInt();
+                            break;
+                        case 3:
+                            System.out.println("rapport monthly");
+                            System.out.println("enter id de user");
+                            int userIdMonthly = inp.nextInt();
+                            consomationService.rapportConsomationMontly(userIdMonthly);
+                            break;
+                        case 4:
+                            System.out.println("exit");
+                            break;
+                        default:
+                            System.out.println("choix invalid");
+                            break;
+                    }
+                    }while (choixRapport !=4);
+
+
+
+
+
+
+                    break;
+
+
+
+
+
+                case 13:
                     System.out.println("exit");
                     break;
                 default:
@@ -373,7 +423,7 @@ public class Main {
             }
 
 
-        }while (choix != 12);
+        }while (choix != 13);
 
 
 
